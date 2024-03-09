@@ -23,6 +23,12 @@ body {
     border-radius: 10px;
 }
 
+.read {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
 h1 {
     text-align: center;
     margin-bottom: 50px;
@@ -72,11 +78,11 @@ button {
 }
 
 .result {
-    margin-top: 60px;
+    margin-top: 80px;
 
 }
 
-.result h3 {
+.result p {
     text-align: center;
     margin-bottom: 20px;
     font-size: 22px;
@@ -108,7 +114,6 @@ button {
         blink-caret .75s step-end infinite;
 }
 
-/* The typing effect */
 @keyframes typing {
     from {
         width: 0
@@ -119,7 +124,6 @@ button {
     }
 }
 
-/* The typewriter cursor effect */
 @keyframes blink-caret {
 
     from,
@@ -130,4 +134,10 @@ button {
     50% {
         border-color: orange;
     }
+}
+
+#start-test,
+#stop-test,
+#restart-test {
+    display: none;
 }

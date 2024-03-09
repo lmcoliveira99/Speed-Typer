@@ -13,6 +13,7 @@
 
     <div class="container">
         <h1 class="text">Press the start button and have fun!!!</h1>
+        <p class="read">Test your typing speed and accuracy</p>
         <div class="stats">
             <p>Timer: <span id="timer">0</span></span></p>
             <p>Mistakes: <span id="mistakes">0</span></p>
@@ -20,13 +21,13 @@
         <div id="quote" onmousedown="return false;" onselectstart="return false;">
         </div>
         <textarea rows="3" name="quotes" id="quote-input" placeholder="Type here to start"></textarea><br />
-        <button id="start-test" onclick="startTest()">Start</button>
-        <button id="stop-test" onclick="displayResult()">Stop</button>
-        <button id="restart-test" onclick="restartTest()">Try Again</button>
+        <button id="start-test" onclick="startTest()" style="display: none;">Start</button>
+        <button id="stop-test" onclick="displayResult()" style="display: none;">Stop</button>
+        <button id="restart-test" onclick="restartTest()" style="display: none;">Try Again</button>
         <div class="result">
-            <h3>Result</h3>
+            <p id="result-message"></p>
             <div class="wrapper">
-                <p>Your Acurracy: <span id="accuracy"></span></p>
+                <p>Your Accurracy: <span id="accuracy"></span></p>
                 <p>Your Speed: <span id="wpm"></span></p>
             </div>
         </div>

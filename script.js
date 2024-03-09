@@ -4,7 +4,7 @@ const textSection = document.getElementById("quote");
 const userInput = document.getElementById("quote-input");
 
 let quote = "";
-let time = 60;
+let time = 30;
 let timer = 0;
 let mistakes = 0;
 
@@ -23,7 +23,6 @@ const generator = async () => {
 
     textSection.innerHTML = newQuote.join("");
 
-    // Add an event listener for the animationend event on the last character
     const lastChar = document.getElementById("last-char");
     lastChar.addEventListener("animationend", () => {
         document.getElementById("start-test").style.display = "block";
@@ -47,7 +46,6 @@ userInput.addEventListener("input", () => {
             }
         } else if (userInputChars[index] === " ") {
             if (char.innerText !== " ") {
-                // Check for space and handle accordingly (if user forgets to press space)
                 char.classList.add("fail");
                 mistakes += 1;
                 document.getElementById("mistakes").innerHTML = mistakes;
@@ -66,26 +64,46 @@ userInput.addEventListener("input", () => {
     let check = quoteChars.every((element) => {
         return element.classList.contains("success");
     });
-    if (check) {
+
+    if (check && userInput.value.length === quote.length) {
         displayResult();
     }
 });
 
-function timeUpdate() {
-    if (time == 0) {
-        displayResult();
+const timeUpdate = () => {
+    if (time === 0) {
+        displayResult("You are too slow !");
+        document.getElementById("wpm").innerText = (userInput.value.length / 5 / (30 / 60)).toFixed(2) + " wpm";
+        document.getElementById("accuracy").innerText = Math.round(((userInput.value.length - mistakes) / userInput.value.length) * 100) + "%";
+    } else {
+        document.getElementById("timer").innerText = --time + " sec";
     }
-    else {
-        document.getElementById("timer").innerText = --time + " sec"; // Fix timer display logic
-    }
-}
+};
+
+
 
 const timeReduce = () => {
-    time = 60;
-    timer = setInterval(timeUpdate, 1000);
-}
+    time = 30;
+    timer = setInterval(() => {
+        if (time === 0) {
+            clearInterval(timer);
+            displayResult("Time's up!");
+        } else {
+            timeUpdate();
+        }
+    }, 1000);
+};
 
-const displayResult = () => {
+const displayOverallStats = () => {
+    const overallTimeTaken = (30 - time) / 100;
+
+    document.getElementById("wpm").innerText = (userInput.value.length / 5 / overallTimeTaken).toFixed(2) + " wpm";
+    document.getElementById("accuracy").innerText = Math.round(((userInput.value.length - mistakes) / userInput.value.length) * 100) + "%";
+};
+
+// Updated displayResult function
+// Updated displayResult function
+const displayResult = (message) => {
     document.querySelector(".result").style.display = "block";
     clearInterval(timer);
     timer = 0;
@@ -93,37 +111,57 @@ const displayResult = () => {
     document.getElementById("restart-test").style.display = "block";
     userInput.disabled = true;
 
-    let timeTaken = 1;
-    if (timer != 0) {
-        timeTaken = (60 - time) / 100;
+    let timeTaken = (30 - time) / 100;
+
+    if (message) {
+        document.getElementById("result-message").innerText = message;
     }
-    document.getElementById("wpm").innerText = (userInput.value.length / 5 / timeTaken).toFixed(2) + (" wpm");
-    document.getElementById("accuracy").innerText = Math.round(((userInput.value.length - mistakes) / userInput.value.length) * 100) + "%";
+
+    if (userInput.value.length === quote.length || message === "Time's up!") {
+        document.getElementById("wpm").innerText = (userInput.value.length / 5 / timeTaken).toFixed(2) + " wpm";
+        document.getElementById("accuracy").innerText = Math.round(((userInput.value.length - mistakes) / userInput.value.length) * 100) + "%";
+    } else {
+        document.getElementById("wpm").innerText = (userInput.value.length / 5 / (30 / 60)).toFixed(2) + " wpm";
+        document.getElementById("accuracy").innerText = Math.round(((userInput.value.length - mistakes) / userInput.value.length) * 100) + "%";
+    }
 };
+
+
 
 const startTest = () => {
     mistakes = 0;
-    clearInterval(timer); // Clear any existing timer
-    timer = 0; // Reset timer to 0
-    timeReduce(); // Start the timer
+    clearInterval(timer);
+    timer = 0;
+    time = 30;
+    timeUpdate();
+    timer = setInterval(timeUpdate, 1000);
     userInput.disabled = false;
     document.getElementById("start-test").style.display = "none";
     document.getElementById("stop-test").style.display = "block";
+    document.querySelector(".result").style.display = "none"; // hide result when starting again
+    document.getElementById("result-message").innerText = ""; // reset result message
     userInput.focus();
 };
+
 const restartTest = () => {
     mistakes = 0;
     clearInterval(timer);
     timer = 0;
-    timeReduce();
+    time = 30;
+    timeUpdate();
     userInput.disabled = false;
-    document.getElementById("restart-test").style.display = "none";
     document.getElementById("stop-test").style.display = "block";
+    document.getElementById("restart-test").style.display = "none";
     userInput.value = "";
     userInput.focus();
-    document.getElementById("mistakes").innerHTML = 0; // Reset mistakes display
-    document.getElementById("timer").innerText = "60 sec"; // Reset timer display
-    generator(); // Fetch a new random quote
+    document.getElementById("mistakes").innerHTML = 0;
+    document.getElementById("timer").innerText = "30 sec";
+
+    setTimeout(() => {
+        document.getElementById("start-test").style.display = "block";
+        document.getElementById("stop-test").style.display = "none";
+    });
+    generator();
 };
 
 window.onload = () => {
@@ -131,9 +169,12 @@ window.onload = () => {
     document.getElementById("start-test").style.display = "none";
     document.getElementById("stop-test").style.display = "none";
     document.getElementById("restart-test").style.display = "none";
+    document.querySelector(".result").style.display = "none"; // hide result on page load
     userInput.disabled = true;
+
     setTimeout(() => {
         document.getElementById("start-test").style.display = "block";
     }, 3500);
+
     setTimeout(generator, 3000);
 };
