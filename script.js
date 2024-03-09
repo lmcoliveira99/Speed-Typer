@@ -178,3 +178,12 @@ window.onload = () => {
 
     setTimeout(generator, 3000);
 };
+
+
+/* NOTE: 
+1- Update the finished quote written.. 
+When the typer is finished and has 100% accuracy it will display a message.
+2- Update the overall wpm and accuracy.
+3- Change the color pallete
+4- Change timer
+5- Explore other features*/
