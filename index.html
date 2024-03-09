@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>I am Speeeeed</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 class="text">Press the start button and have fun!!!</h1>
+        <div class="stats">
+            <p>Timer: <span id="timer">0</span></span></p>
+            <p>Mistakes: <span id="mistakes">0</span></p>
+        </div>
+        <div id="quote" onmousedown="return false;" onselectstart="return false;">
+        </div>
+        <textarea rows="3" name="quotes" id="quote-input" placeholder="Type here to start"></textarea><br />
+        <button id="start-test" onclick="startTest()">Start</button>
+        <button id="stop-test" onclick="displayResult()">Stop</button>
+        <button id="restart-test" onclick="restartTest()">Try Again</button>
+        <div class="result">
+            <h3>Result</h3>
+            <div class="wrapper">
+                <p>Your Acurracy: <span id="accuracy"></span></p>
+                <p>Your Speed: <span id="wpm"></span></p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
