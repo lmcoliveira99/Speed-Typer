@@ -72,15 +72,11 @@ userInput.addEventListener("input", () => {
 
 const timeUpdate = () => {
     if (time === 0) {
-        displayResult("You are too slow !");
-        document.getElementById("wpm").innerText = (userInput.value.length / 5 / (30 / 60)).toFixed(2) + " wpm";
-        document.getElementById("accuracy").innerText = Math.round(((userInput.value.length - mistakes) / userInput.value.length) * 100) + "%";
+        displayResult("You are too slow!");
     } else {
         document.getElementById("timer").innerText = --time + " sec";
     }
 };
-
-
 
 const timeReduce = () => {
     time = 30;
@@ -96,13 +92,13 @@ const timeReduce = () => {
 
 const displayOverallStats = () => {
     const overallTimeTaken = (30 - time) / 100;
+    const wpm = (userInput.value.length / 5 / overallTimeTaken).toFixed(2);
+    const accuracy = userInput.value.length ? Math.round(((userInput.value.length - mistakes) / userInput.value.length) * 100) + "%" : "0%";
 
-    document.getElementById("wpm").innerText = (userInput.value.length / 5 / overallTimeTaken).toFixed(2) + " wpm";
-    document.getElementById("accuracy").innerText = Math.round(((userInput.value.length - mistakes) / userInput.value.length) * 100) + "%";
+    document.getElementById("wpm").innerText = wpm + " wpm";
+    document.getElementById("accuracy").innerText = accuracy;
 };
 
-// Updated displayResult function
-// Updated displayResult function
 const displayResult = (message) => {
     document.querySelector(".result").style.display = "block";
     clearInterval(timer);
@@ -119,14 +115,12 @@ const displayResult = (message) => {
 
     if (userInput.value.length === quote.length || message === "Time's up!") {
         document.getElementById("wpm").innerText = (userInput.value.length / 5 / timeTaken).toFixed(2) + " wpm";
-        document.getElementById("accuracy").innerText = Math.round(((userInput.value.length - mistakes) / userInput.value.length) * 100) + "%";
+        document.getElementById("accuracy").innerText = userInput.value.length ? Math.round(((userInput.value.length - mistakes) / userInput.value.length) * 100) + "%" : "0%";
     } else {
         document.getElementById("wpm").innerText = (userInput.value.length / 5 / (30 / 60)).toFixed(2) + " wpm";
-        document.getElementById("accuracy").innerText = Math.round(((userInput.value.length - mistakes) / userInput.value.length) * 100) + "%";
+        document.getElementById("accuracy").innerText = userInput.value.length ? Math.round(((userInput.value.length - mistakes) / userInput.value.length) * 100) + "%" : "0%";
     }
 };
-
-
 
 const startTest = () => {
     mistakes = 0;
@@ -138,8 +132,8 @@ const startTest = () => {
     userInput.disabled = false;
     document.getElementById("start-test").style.display = "none";
     document.getElementById("stop-test").style.display = "block";
-    document.querySelector(".result").style.display = "none"; // hide result when starting again
-    document.getElementById("result-message").innerText = ""; // reset result message
+    document.querySelector(".result").style.display = "none";
+    document.getElementById("result-message").innerText = "";
     userInput.focus();
 };
 
@@ -160,7 +154,8 @@ const restartTest = () => {
     setTimeout(() => {
         document.getElementById("start-test").style.display = "block";
         document.getElementById("stop-test").style.display = "none";
-    });
+    }, 3500);
+
     generator();
 };
 
@@ -169,7 +164,7 @@ window.onload = () => {
     document.getElementById("start-test").style.display = "none";
     document.getElementById("stop-test").style.display = "none";
     document.getElementById("restart-test").style.display = "none";
-    document.querySelector(".result").style.display = "none"; // hide result on page load
+    document.querySelector(".result").style.display = "none";
     userInput.disabled = true;
 
     setTimeout(() => {
@@ -178,12 +173,3 @@ window.onload = () => {
 
     setTimeout(generator, 3000);
 };
-
-
-/* NOTE: 
-1- Update the finished quote written.. 
-When the typer is finished and has 100% accuracy it will display a message.
-2- Update the overall wpm and accuracy.
-3- Change the color pallete
-4- Change timer
-5- Explore other features*/

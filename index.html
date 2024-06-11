@@ -6,28 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="style.css">
-    <title>I am Speeeeed</title>
+    <title>Speed Typer 1.0</title>
 </head>
 
 <body>
-
     <div class="container">
         <h1 class="text">Press the start button and have fun!!!</h1>
         <p class="read">Test your typing speed and accuracy</p>
         <div class="stats">
-            <p>Timer: <span id="timer">0</span></span></p>
+            <p>Timer: <span id="timer">0</span></p>
             <p>Mistakes: <span id="mistakes">0</span></p>
         </div>
-        <div id="quote" onmousedown="return false;" onselectstart="return false;">
-        </div>
+        <div id="quote" aria-hidden="true" onmousedown="return false;" onselectstart="return false;"></div>
         <textarea rows="3" name="quotes" id="quote-input" placeholder="Type here to start"></textarea><br />
-        <button id="start-test" onclick="startTest()" style="display: none;">Start</button>
-        <button id="stop-test" onclick="displayResult()" style="display: none;">Stop</button>
-        <button id="restart-test" onclick="restartTest()" style="display: none;">Try Again</button>
-        <div class="result">
+        <button id="start-test" aria-label="Start Test" onclick="startTest()" style="display: none;">Start</button>
+        <button id="stop-test" aria-label="Stop Test" onclick="displayResult()" style="display: none;">Stop</button>
+        <button id="restart-test" aria-label="Try Again" onclick="restartTest()" style="display: none;">Try
+            Again</button>
+        <div class="result" aria-hidden="true">
             <p id="result-message"></p>
             <div class="wrapper">
-                <p>Your Accurracy: <span id="accuracy"></span></p>
+                <p>Your Accuracy: <span id="accuracy"></span></p>
                 <p>Your Speed: <span id="wpm"></span></p>
             </div>
         </div>

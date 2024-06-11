@@ -141,3 +141,18 @@ button {
 #restart-test {
     display: none;
 }
+
+@media all and (max-width: 500px) {
+    .container {
+        width: 90%;
+    }
+
+    .text {
+        font-size: 17px;
+    }
+
+    .read {
+        font-size: 15px;
+        margin-bottom: 45px;
+    }
+}
