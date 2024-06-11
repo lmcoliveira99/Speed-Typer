@@ -24,14 +24,18 @@
         <button id="restart-test" aria-label="Try Again" onclick="restartTest()" style="display: none;">Try
             Again</button>
         <div class="result" aria-hidden="true">
-            <p id="result-message"></p>
-            <div class="wrapper">
-                <p>Your Accuracy: <span id="accuracy"></span></p>
-                <p>Your Speed: <span id="wpm"></span></p>
+            <button id="start-test" onclick="startTest()" style="display: none;">Start</button>
+            <button id="stop-test" onclick="displayResult()" style="display: none;">Stop</button>
+            <button id="restart-test" onclick="restartTest()" style="display: none;">One more time</button>
+            <div class="result">
+                <p id="result-message"></p>
+                <div class="wrapper">
+                    <p>Your Accuracy: <span id="accuracy"></span></p>
+                    <p>Your Speed: <span id="wpm"></span></p>
+                </div>
             </div>
         </div>
-    </div>
-    <script src="script.js"></script>
+        <script src="script.js"></script>
 </body>
 
 </html>

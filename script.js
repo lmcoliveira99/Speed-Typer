@@ -73,6 +73,9 @@ userInput.addEventListener("input", () => {
 const timeUpdate = () => {
     if (time === 0) {
         displayResult("You are too slow!");
+        displayResult("Focus and keep trying!");
+        document.getElementById("wpm").innerText = (userInput.value.length / 5 / (30 / 60)).toFixed(2) + " wpm";
+        document.getElementById("accuracy").innerText = Math.round(((userInput.value.length - mistakes) / userInput.value.length) * 100) + "%";
     } else {
         document.getElementById("timer").innerText = --time + " sec";
     }
@@ -173,3 +176,4 @@ window.onload = () => {
 
     setTimeout(generator, 3000);
 };
+
